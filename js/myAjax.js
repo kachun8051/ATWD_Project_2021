@@ -61,7 +61,7 @@ function loadingPage(){
             if (resultArray == undefined) {
                 return;
             }
-            htmlString = "<table class='table table-hover'>";
+            htmlString = "<table id='displaytable' class='table table-hover'>";
 			htmlString += "<tr><th>GIHS</th>";
 			htmlString += "<th>district</th>";
 			htmlString += "<th>district_cn</th>";
