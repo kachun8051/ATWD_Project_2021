@@ -9,6 +9,8 @@ function onLoadHandler(){
 	request.open("GET", url2, true);	
 	request.onreadystatechange = loadingPage;  // callback	
 	request.send(null);
+    // fetch the weather icon
+    fetchWeather();
 } 
 
 function onUpdatedHandler(){
@@ -179,4 +181,45 @@ function goAdd(){
     request.open("POST", url2, true);
     request.onreadystatechange = onUpdatedHandler; //callback
     request.send(JSON.stringify(objSend));
+}
+
+//var loading;
+var iconurl;
+
+async function fetchWeather() {
+  //this.loading = true;
+  const mylink = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en";
+  console.log('mylink: ' + mylink);     
+  const res = await fetch(mylink); 
+  const data = await res.json();
+  if (Array.isArray(data.icon)) {
+    this.iconurl = `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${data.icon[0]}.png`;       
+    console.log('icon fetched');
+    let sumOfTemp = 0.0;
+    let countOfTemp = 0;
+    data.temperature.data.forEach(
+        (item) => {
+            sumOfTemp += item.value;
+            countOfTemp += 1;
+        }
+    );
+    let avgOfTemp = (sumOfTemp / countOfTemp).toFixed(1);
+    let humid = data.humidity.data[0].value;
+    let sumOfRain = 0.0;
+    let countOfRain = 0;
+    data.rainfall.data.forEach(
+        (item) => {
+            sumOfRain += item.max;
+            countOfRain += 1;
+        }
+    );
+    let avgOfRain = (sumOfRain / countOfRain).toFixed(1);
+    document.getElementById("weather").innerHTML = 
+        "<div class='d-flex justify-content-between'><img src='" + 
+        this.iconurl + "' style='width: 80px; max-width: 80px; max-height: 80px; margin-left:15px;' />" +
+        "<ul><li>Temp: " + avgOfTemp + "&deg;C</li>" +
+        "<li>Humid: " + humid + "%</li>" +
+        "<li>Rainfail: " + avgOfRain + "mm</li></ul></div>";
+    //this.loading = false;
+  }
 }
