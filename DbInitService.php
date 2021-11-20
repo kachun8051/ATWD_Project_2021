@@ -1,5 +1,5 @@
 <?php
-    class DbInitService {
+    class DbinitService {
         //http://localhost/controller.php/dbinit
         function restGet(){
             require "clsDbInit.php";
