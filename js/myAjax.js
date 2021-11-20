@@ -67,7 +67,7 @@ function loadingPage(){
 			htmlString += "<th>district_cn</th>";
 			htmlString += "<th>address</th>";
 			htmlString += "<th>longitude</th>";
-            htmlString += "<th>latitude</th></tr>"			
+            htmlString += "<th>latitude</th><th></th><th></th></tr>"			
 			resultArray.forEach(showRowRecord); 
             htmlString += "</ul>"
 			area.innerHTML = htmlString;
