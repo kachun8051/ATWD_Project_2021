@@ -26,6 +26,6 @@
 ```
 ## Uploaded on php hosting server
 
-![./imagesforreadme/websiteinhosting.png](./imagesforeadme/websiteinhosting.png)
+![/imagesforreadme/websiteinhosting.png](/imagesforreadme/websiteinhosting.png)
 
 [http://www.phpmysqlmariadb.byethost3.com/index.html](http://www.phpmysqlmariadb.byethost3.com/index.html)
