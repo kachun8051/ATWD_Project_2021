@@ -184,7 +184,7 @@ function goAdd(){
 }
 
 //var loading;
-var iconurl;
+//var iconurl;
 
 async function fetchWeather() {
   //this.loading = true;
@@ -193,7 +193,7 @@ async function fetchWeather() {
   const res = await fetch(mylink); 
   const data = await res.json();
   if (Array.isArray(data.icon)) {
-    this.iconurl = `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${data.icon[0]}.png`;       
+    let iconurl = `https://www.hko.gov.hk/images/HKOWxIconOutline/pic${data.icon[0]}.png`;       
     console.log('icon fetched');
     let sumOfTemp = 0.0;
     let countOfTemp = 0;
@@ -216,7 +216,7 @@ async function fetchWeather() {
     let avgOfRain = (sumOfRain / countOfRain).toFixed(1);
     document.getElementById("weather").innerHTML = 
         "<div class='d-flex justify-content-between'><img src='" + 
-        this.iconurl + "' style='width: 80px; max-width: 80px; max-height: 80px; margin-left:15px;' />" +
+        iconurl + "' style='width: 80px; max-width: 80px; max-height: 80px; margin-left:15px;' />" +
         "<ul><li>Temp: " + avgOfTemp + "&deg;C</li>" +
         "<li>Humid: " + humid + "%</li>" +
         "<li>Rainfail: " + avgOfRain + "mm</li></ul></div>";
