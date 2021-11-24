@@ -85,10 +85,43 @@ function showRowRecord(record) {
 	htmlString += "<td>" + record["address"] + "</td>";
 	htmlString += "<td>" + record["longitude"] + "</td>";
     htmlString += "<td>" + record["latitude"] + "</td>";
+    htmlString += "<td><img src='./images/gmap.png' width=30 onclick='tryFillGMap(&quot;" + record["latitude"] + "&quot;, &quot;" + record["longitude"] + "&quot;)' data-bs-toggle='modal' title='google map' data-bs-target='#GMapModal' /></td>";
     htmlString += "<td><img src='./images/bin.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;, &quot;delete&quot;)' data-bs-toggle='modal' title='delete' data-bs-target='#confirmDeleteModal' /></td>";	            
     htmlString += "<td><img src='./images/edit.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;, &quot;edit&quot;)' data-bs-toggle='modal' title='edit' data-bs-target='#confirmEditModal' /></td>";
 	htmlString += "</tr>";
 }
+
+function tryFillGMap(_lat, _long) {
+    //var lat = position.coords.latitude;
+    //var lon = position.coords.longitude;
+    let lat = convertGeoLoc(_lat);
+    let lon = convertGeoLoc(_long);
+    var latlon = new google.maps.LatLng(lat, lon)
+    var mapholder = document.getElementById('mapholder')
+    mapholder.style.height = '250px';
+    mapholder.style.width = '500px';
+  
+    var myOptions = {
+      center:latlon,zoom:14,
+      mapTypeId:google.maps.MapTypeId.ROADMAP,
+      mapTypeControl:false,
+      navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+    }
+      
+    var map = new google.maps.Map(document.getElementById("mapholder"), myOptions);
+    var marker = new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+}
+
+function convertGeoLoc(i_str) {  
+    const arr = i_str.split("-");
+    if (arr.length != 3) {
+        console.log("arr's length: " + arr.length);
+        return 0;
+    }      
+    let loc = parseFloat(arr[0]) + parseFloat(arr[1])/60 + parseFloat(arr[2])/3600;
+    console.log("loc: " + loc);
+    return loc;
+  }
 
 //try fill the pop up the modal
 function tryFillModal(gihs, operation){
