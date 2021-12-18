@@ -49,11 +49,14 @@ function onUpdatedHandler(){
 }
 
 function loadingPage(){
+    //alert("loadingPage");
     if (request.readyState==4) {
 		if (request.status==200) {
 			var serverData = request.responseText;
 			var area = document.getElementById("displayArea");
-			//area.innerHTML = serverData;
+			area.innerHTML = serverData;
+            //console.log(serverData);
+            //return;
 			let resultObj = JSON.parse(serverData);
             if (resultObj.issuccess === false) {
                 return;
@@ -69,7 +72,7 @@ function loadingPage(){
 			htmlString += "<th>district_cn</th>";
 			htmlString += "<th>address</th>";
 			htmlString += "<th>longitude</th>";
-            htmlString += "<th>latitude</th><th></th><th></th></tr>"			
+            htmlString += "<th>latitude</th><th>Map</th><th>Delete</th><th>Edit</th></tr>"			
 			resultArray.forEach(showRowRecord); 
             htmlString += "</ul>"
 			area.innerHTML = htmlString;
@@ -80,12 +83,12 @@ function loadingPage(){
 function showRowRecord(record) {
 	htmlString += "<tr>";
 	htmlString += "<td>" + record["GIHS"] + "</td>";
-	htmlString += "<td>" + record["district"] + "</td>";
-	htmlString += "<td>" + record["district_cn"] + "</td>";
-	htmlString += "<td>" + record["address"] + "</td>";
-	htmlString += "<td>" + record["longitude"] + "</td>";
-    htmlString += "<td>" + record["latitude"] + "</td>";
-    htmlString += "<td><img src='./images/gmap.png' width=30 onclick='tryFillGMap(&quot;" + record["latitude"] + "&quot;, &quot;" + record["longitude"] + "&quot;)' data-bs-toggle='modal' title='google map' data-bs-target='#GMapModal' /></td>";
+	htmlString += "<td>" + record["District_en"] + "</td>";
+	htmlString += "<td>" + record["District_cn"] + "</td>";
+	htmlString += "<td>" + record["Address_en"] + "</td>";
+	htmlString += "<td>" + record["Longitude"] + "</td>";
+    htmlString += "<td>" + record["Latitude"] + "</td>";
+    htmlString += "<td><img src='./images/gmap.png' width=30 onclick='tryFillGMap(&quot;" + record["Latitude"] + "&quot;, &quot;" + record["Longitude"] + "&quot;)' data-bs-toggle='modal' title='google map' data-bs-target='#GMapModal' /></td>";
     htmlString += "<td><img src='./images/bin.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;, &quot;delete&quot;)' data-bs-toggle='modal' title='delete' data-bs-target='#confirmDeleteModal' /></td>";	            
     htmlString += "<td><img src='./images/edit.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;, &quot;edit&quot;)' data-bs-toggle='modal' title='edit' data-bs-target='#confirmEditModal' /></td>";
 	htmlString += "</tr>";
@@ -139,12 +142,12 @@ function tryFillModal(gihs, operation){
 	for (item of resultArray) {
 		if (item['GIHS']==gihs) {
 			m_GIHS = item['GIHS'];
-			m_name = item['name'];	
-			m_dist = item['district'];
-			m_dist_cn = item['district_cn'];
-			m_addr = item['address'];	
-			m_long = item['longitude'];
-            m_lat = item['latitude'];
+			m_name = item['Name_en'];	
+			m_dist = item['District_en'];
+			m_dist_cn = item['District_cn'];
+			m_addr = item['Address_en'];	
+			m_long = item['Longitude'];
+            m_lat = item['Latitude'];
             console.log("found!");
 			break;
 		}

@@ -1,14 +1,22 @@
 <?php
-
+    require_once "getSqlString.php";
     class clsDbInit {
-        private $server = "localhost";
-        private $dbuser = "root";
-        private $dbpassword = "";
-        private $dbname = "bbq";
+        //private $server = "localhost";
+        //private $dbuser = "root";
+        //private $dbpassword = "";
+        //private $dbname = "bbq";
+        private $objSqlString;
+
+        function __construct() {            
+            $this->objSqlString = new sqlString();
+        }
 
         function checkDbExist() {
             $isexist = false;
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword);
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
+            $conn = $this->objSqlString->getConn2(); // new mysqli($this->server, $this->dbuser, $this->dbpassword);
             if ($conn->connect_error) {
                 die ("database connection failed");
                 exit;
@@ -29,7 +37,10 @@
 
         function createDb() {
             $iscreated = false;
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword);
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
+            $conn = $this->objSqlString->getConn2(); // new mysqli($this->server, $this->dbuser, $this->dbpassword);
             // If database is not exist create one
             if (!mysqli_select_db($conn, $this->dbname)){
                 $sql = "CREATE DATABASE IF NOT EXISTS " . $this->dbname . " DEFAULT CHARSET utf8";
@@ -50,8 +61,11 @@
 
         function checkTableExist() {
             $isexist = false;
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
             // First, establish a new connection for creating table if not exists
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
+            $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             if ($conn->connect_error) {                
                 $isexist = false;
                 die ("database connection failed");                
@@ -69,17 +83,20 @@
 
         function createTable() {
             $iscreated = false;
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
+            $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             if ($conn->connect_error) {
                 $isexist = false;
                 die ("database connection failed");
             } else {
-                // Second, create table if not exists
-                $sql  = "CREATE TABLE IF NOT EXISTS `tblbbq`(";
-                $sql .= "GIHS VARCHAR(20), name TEXT, district TEXT, district_cn TEXT, address TEXT, longitude TEXT, latitude TEXT, "; 
-                $sql .= "PRIMARY KEY (GIHS)) ";
-                $sql .= "DEFAULT CHARSET=utf8";
-                if (!$result=$conn->query($sql)){
+                // Second, create table if not exists 
+                if ($this->objSqlString == null) {
+                    $this->objSqlString = new sqlString();
+                }
+                $sql_1 = $this->objSqlString->sqlcreate;
+                if (!$result=$conn->query($sql_1)){
                     //die ("failed to create table");
                     $iscreated = false;
                 } else {
@@ -91,7 +108,10 @@
 
         function checkTableEmpty() {
             $isempty = true;
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
+            $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             if ($conn->connect_error) {
                 $isempty = false;
                 die ("database connection failed");
@@ -122,19 +142,14 @@
                 return false;
             }
             $isinserted = true;
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
+            $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             $bbqs = json_decode($jsonFile, true);
-            foreach ($bbqs as $bbq) {
-                $GIHS = $bbq['GIHS'];
-                $district = str_replace("'", "&apos;", $bbq['District_en']);
-                //$name = $bbq['Name_en']   .replace("'", "&quot;");
-                $district_cn = str_replace("'", "&apos;", $bbq['District_cn']);
-                $name = str_replace("'", "&apos;", $bbq['Name_en']);
-                $address = str_replace("'", "&apos;", $bbq['Address_en']);  
-                $longitude = str_replace("'", "&apos;", $bbq['Longitude']);
-                $latitude = str_replace("'", "&apos;", $bbq['Latitude']);        
-                $sql = "INSERT INTO tblbbq VALUES ('$GIHS','$name','$district','$district_cn','$address','$longitude','$latitude')";
-                if (!$result=$conn->query($sql)) {
+            foreach ($bbqs as $bbq) {                
+                $sql_2 = $this->objSqlString->getSqlInsert($bbq);
+                if (!$result=$conn->query($sql_2)) {
                     die ("insertion failed");
                     $isinserted = false;
                 }
@@ -144,8 +159,10 @@
         }
 
         function deleteAllRecords() {
-            
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }
+            $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             if ($conn->connect_error) {
                 die ("database connection failed");
                 return false;
@@ -161,28 +178,23 @@
             return $isdeleted;
         }
 
-        function fetchAllRecords(){            
-            $conn = new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
+        function fetchAllRecords(){   
+            if ($this->objSqlString == null) {
+                $this->objSqlString = new sqlString();
+            }         
+            $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             if ($conn->connect_error) {
                 //$successArray = array();
                 //die ("database connection failed");
                 return array("issuccess"=>false);
             }
             $resultArray = array();
-            $sql = "SELECT GIHS, name, district, district_cn, address, longitude, latitude FROM tblbbq";
+            $sql = "SELECT GIHS, Name_en, District_en, District_cn, Address_en, Longitude, Latitude FROM tblbbq";
 			if ($dbresult=$conn->query($sql)) {
                 $dataArray = array();
 				// records retrieved
-				while ( $row=$dbresult->fetch_object()  ) {
-					$record = array();
-                    $record['GIHS'] = $row->GIHS;
-					$record['name'] = $row->name;
-					$record['district'] = $row->district;
-					$record['district_cn'] = $row->district_cn;
-					$record['address'] = $row->address;
-					$record['longitude'] = $row->longitude;
-					$record['latitude'] = $row->latitude;
-					$dataArray[] = $record;
+				while ( $row=$dbresult->fetch_assoc()) {
+					$dataArray[] = $row;
 				}
 				//echo json_encode($resultArray);
                 $resultArray = array("issuccess"=>true, "data"=>$dataArray);
