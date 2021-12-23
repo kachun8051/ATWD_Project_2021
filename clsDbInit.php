@@ -1,10 +1,7 @@
 <?php
     require_once "getSqlString.php";
     class clsDbInit {
-        //private $server = "localhost";
-        //private $dbuser = "root";
-        //private $dbpassword = "";
-        //private $dbname = "bbq";
+        
         private $objSqlString;
 
         function __construct() {            
@@ -189,8 +186,8 @@
                 return array("issuccess"=>false);
             }
             $resultArray = array();
-            $sql = "SELECT GIHS, Name_en, District_en, District_cn, Address_en, Longitude, Latitude FROM tblbbq";
-			if ($dbresult=$conn->query($sql)) {
+            //$sql = "SELECT GIHS, Name_en, District_en, District_cn, Address_en, Longitude, Latitude FROM tblbbq";
+			if ($dbresult=$conn->query($this->objSqlString->sqlSelect_en)) {
                 $dataArray = array();
 				// records retrieved
 				while ( $row=$dbresult->fetch_assoc()) {

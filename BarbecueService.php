@@ -2,11 +2,6 @@
     require_once "getSqlString.php";
     class BarbecueService{
 
-        //private $server = "localhost";
-        //private $dbuser = "root";
-        //private $dbpassword = "";
-        //private $dbname = "bbq";
-
         private $objSqlString;
 
         function __construct() {            
@@ -24,10 +19,7 @@
                 exit;
             }
             $resultArray = array();
-            $sql = "SELECT GIHS, Name_en, District_en, District_cn, Address_en, Longitude, Latitude FROM tblbbq";
-            //echo $sql;
-            //exit;
-			if ($dbresult=$conn->query($sql)) {
+			if ($dbresult=$conn->query($this->objSqlString->sqlSelect_en)) {
                 $dataArray = array();
 				// records retrieved
 				while ( $row=$dbresult->fetch_object()) {					
