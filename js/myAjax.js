@@ -189,11 +189,26 @@ function findRowByGIHS(gihs){
         return obj;
     }
 }
+// clear the add modal upon onclick
+function resetAddModal() {
+    //document.getElementById("modalGIHS3").value = "";
+	document.getElementById("modalName3").value = "";
+	document.getElementById("modalDistrict3").value = "";
+    document.getElementById("modalAddress3").value = "";
+	document.getElementById("modalPhone3").value = "";
+    document.getElementById("modalFacilities3").value = "";
+    document.getElementById("modalAncillary3").value = "";
+    document.getElementById("modalHours3").value = "";
+    document.getElementById("modalRemark3").value = "";
+    document.getElementById("modalLat3").value = "";
+	document.getElementById("modalLong3").value = "";
+}
 
 //try fill the pop up the modal
 function tryFillModal(gihs, operation){
 
     if (operation == 'add') {
+        resetAddModal();
         return;
     }
     console.log("input gihs: " + gihs);
@@ -263,7 +278,7 @@ function goEdit(){
     request.send(JSON.stringify(objSend));
 }
 
-function goAdd(){
+function goAdd(){    
     // retrieve the UI into an object for sending (i.e. POST)
     // The unique key GIHS would be created in REST API but not from UI
     let objSend = {

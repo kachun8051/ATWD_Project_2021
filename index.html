@@ -19,6 +19,7 @@
             Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
         -->            
         <script src="./js/myAjax.js"></script>
+        <script src="./js/ValidatingAdd.js"></script>
         <script>
             $(document).ready(
                 function() {
@@ -43,7 +44,7 @@
                 <div class="pb-2" id="weather"></div>
                 <div class="pb-2"><input class="form-control" id="searchbox" type="text" placeholder="Search..."></div>
                 <div class="pb-2">
-                <button style="margin-right: 15px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmAddModal">
+                <button onclick="resetAddModal()" style="margin-right: 15px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmAddModal">
                 Add Facility</button>
                 </div>
             </div>
@@ -173,22 +174,27 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Name</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalName2">
+                            <small id="namevalid2" style="color:red;"></small>
                         </div>          
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">District</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalDistrict2">            
+                            <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalDistrict2">
+                            <small id="districtvalid2" style="color:red;"></small>            
                         </div>	
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Address</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalAddress2">
+                            <small id="addressvalid2" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Phone</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalPhone2">
+                            <small id="phonevalid2" style="color:red;"></small>
                         </div>			
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Facilities</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalFacilities2">
+                            <small id="facilitiesvalid2" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Ancillary</span>
@@ -197,6 +203,7 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Opening hours</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalHours2">
+                            <small id="hoursvalid2" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Remarks</span>
@@ -205,10 +212,12 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Latitude</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalLat2">
+                            <small id="latvalid2" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon2">Longitude</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon2" id="modalLong2">
+                            <small id="longvalid2" style="color:red;"></small>
                         </div>		
                     </div>
                     <div class="modal-footer">
@@ -226,51 +235,61 @@
                         <h5 class="modal-title" id="confirmAddModalLabel">Add Facility</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">                                  
+                    <div class="modal-body">           
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Name</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalName3">
+                            <small id="namevalid3" style="color:red;"></small>
                         </div>          
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">District</span>
-                            <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalDistrict3">            
-                        </div>	
+                            <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalDistrict3">
+                            <small id="districtvalid3" style="color:red;"></small>            
+                        </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Address</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalAddress3">
+                            <small id="addressvalid3" style="color:red;"></small>
                         </div>                        	
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Phone</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalPhone3">
+                            <small id="phonevalid3" style="color:red;"></small>
                         </div>                        	
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Facilities</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalFacilities3">
+                            <small id="facilitiesvalid3" style="color:red;"></small>
                         </div>			
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Ancillary</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalAncillary3">
+                            <small id="ancillaryvalid3" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Hours</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalHours3">
+                            <small id="hoursvalid3" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Remarks</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalRemark3">
+                            <small id="remarkvalid3" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Latitude</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalLat3">
+                            <small id="latvalid3" style="color:red;"></small>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon3">Longitude</span>
                             <input type="text" class="form-control" aria-describedby="basic-addon3" id="modalLong3">
+                            <small id="longvalid3" style="color:red;"></small>
                         </div>		
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnModalCancel3">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="goAdd()">Confirm</button>
+                        <button id="AddIt" type="button" class="btn btn-primary">Confirm</button>
                     </div>
                 </div>
             </div>
