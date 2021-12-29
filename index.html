@@ -59,8 +59,13 @@
                 <div class="pb-2">
                     <input class="form-control" id="searchbox" type="text" placeholder="Search...">
                     <br/>
-                    
-                    <div id="districtArea" class="dropdown"></div>
+                    <div class="dropdown">
+                        <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>
+                        District Search
+                        </button>
+                        <ul id="districtArea" class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>
+                        </ul>
+                    </div>
                 </div>
                 <div class="pb-2">
                 <button onclick="resetAddModal()" style="margin-right: 15px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmAddModal">

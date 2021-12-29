@@ -65,18 +65,12 @@ function loadingDistrict() {
             if (resultArray == undefined) {
                 return;
             }
-            htmlString = "<button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton1' ";
-            htmlString += "data-bs-toggle='dropdown' aria-expanded='false'>";
-            htmlString += "District Search ...";
-            htmlString += "</button>";
-            htmlString += "<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>";
-            htmlString += "<li><a class='dropdown-item' href='#'>ALL</a></li>";
+            htmlString = "<li><a class='dropdown-item' href='#'>ALL</a></li>";
             resultArray.forEach(
                 (item) => {
                     htmlString += "<li><a class='dropdown-item' href='#'>" + item + "</a></li>";
                 }
-            )
-            htmlString += "</ul>";
+            )            
             console.log("district: " + htmlString);
             let elem = document.getElementById("districtArea");
             elem.innerHTML = htmlString;       
