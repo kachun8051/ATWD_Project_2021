@@ -3,15 +3,20 @@ var request = new XMLHttpRequest();
 var resultArray;
 var htmlString;
             
-function onLoadHandler(){
+function onLoadHandler(){    
+    // fetch the weather icon
+    fetchWeather();    
+    // fetch the bbq facilities
+    fetchFacilities();
+} 
+
+function fetchFacilities() {
     // link - http://localhost/ATWD_Project_2021/controller.php/dbinit
     var url2 = "./controller.php/dbinit";		
 	request.open("GET", url2, true);	
 	request.onreadystatechange = loadingPage;  // callback	
 	request.send(null);
-    // fetch the weather icon
-    fetchWeather();
-} 
+}
 
 function onUpdatedHandler(){
     if (request.readyState==4) {
@@ -48,13 +53,44 @@ function onUpdatedHandler(){
     }                
 }
 
+function loadingDistrict() {
+    if (request.readyState == 4) {
+        if (request.status == 200) {
+            var serverData = request.responseText;
+            let resultObj = JSON.parse(serverData);
+            if (resultObj.issuccess === false) {
+                return;
+            }
+            resultArray = resultObj.data;
+            if (resultArray == undefined) {
+                return;
+            }
+            htmlString = "<button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton1' ";
+            htmlString += "data-bs-toggle='dropdown' aria-expanded='false'>";
+            htmlString += "District Search ...";
+            htmlString += "</button>";
+            htmlString += "<ul class='dropdown-menu' aria-labelledby='dropdownMenuButton1'>";
+            htmlString += "<li><a class='dropdown-item' href='#'>ALL</a></li>";
+            resultArray.forEach(
+                (item) => {
+                    htmlString += "<li><a class='dropdown-item' href='#'>" + item + "</a></li>";
+                }
+            )
+            htmlString += "</ul>";
+            console.log("district: " + htmlString);
+            let elem = document.getElementById("districtArea");
+            elem.innerHTML = htmlString;       
+        }
+    }
+}
+
 function loadingPage(){
     //alert("loadingPage");
     if (request.readyState==4) {
 		if (request.status==200) {
 			var serverData = request.responseText;
 			var area = document.getElementById("displayArea");
-			area.innerHTML = serverData;
+			//area.innerHTML = serverData;
             //console.log(serverData);
             //return;
 			let resultObj = JSON.parse(serverData);
@@ -75,8 +111,17 @@ function loadingPage(){
 			resultArray.forEach(showRowRecord); 
             htmlString += "</ul>"
 			area.innerHTML = htmlString;
+            // fetch the district list after the facilities loading completed
+            fetchDistrict();
         }
     }
+}
+
+function fetchDistrict() {
+    var url1 = "./controller.php/barbecue/District_en";
+    request.open("GET", url1, true);	
+	request.onreadystatechange = loadingDistrict;  // callback	
+	request.send(null);
 }
 // record is value 
 // idx is counter            
@@ -301,7 +346,6 @@ function goAdd(){
 
 //var loading;
 //var iconurl;
-
 async function fetchWeather() {
   //this.loading = true;
   const mylink = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en";

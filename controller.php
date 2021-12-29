@@ -48,7 +48,7 @@
             //dynamic binding
             //$this->serviceProvider->$functionName($this->urlSegments);
             if ($this->paramsInBody == null && $this->urlSegments == null) {
-                $this->serviceProvider->$functionName();   
+                $this->serviceProvider->$functionName(null);   
             } else {
                 $input = '';
                 if ($httpMethod == 'Get' || $httpMethod == 'Delete') {

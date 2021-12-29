@@ -8,7 +8,8 @@
             $objSqlString = new sqlString();
         }
 
-        function restGet() {
+        function restGet($param) {
+            
             if ($this->objSqlString == null) {
                 $this->objSqlString = new sqlString();
             }
@@ -18,16 +19,37 @@
                 echo json_encode(array("issuccess"=>false, "errcode"=>"102", "errmsg"=>"Database connection failure"));
                 exit;
             }
-            $resultArray = array();
-			if ($dbresult=$conn->query($this->objSqlString->sqlSelect_en)) {
-                $dataArray = array();
-				// records retrieved
-				while ( $row=$dbresult->fetch_object()) {					
-					$dataArray[] = $row;
-				}
-				//echo json_encode($resultArray);
-                $resultArray = array("issuccess"=>true, "data"=>$dataArray);
-			}
+            $resultArray = array();       
+            if ($param !== null) {
+                $tempSql = "SELECT " . $param[0] . " FROM `tblbbq` GROUP BY " . $param[0];
+                $dbresult = $conn->query($tempSql);
+                if ($dbresult) {
+                    $dataArray = array();
+                    // records retrieved
+                    while ( $row=$dbresult->fetch_assoc()) {					
+                        $dataArray[] = $row[$param[0]];
+                    }
+                    //echo json_encode($resultArray);
+                    $resultArray = array("issuccess"=>true, "data"=>$dataArray);
+                } else {
+                    echo json_encode(array("issuccess"=>false, "errcode"=>"103", "errmsg"=>"query failure"));
+                    exit;
+                }
+            } else {
+                $dbresult = $conn->query($this->objSqlString->sqlSelect_en); 
+                if ($dbresult) {
+                    $dataArray = array();
+                    // records retrieved
+                    while ( $row=$dbresult->fetch_object()) {					
+                        $dataArray[] = $row;
+                    }
+                    //echo json_encode($resultArray);
+                    $resultArray = array("issuccess"=>true, "data"=>$dataArray);
+                } else {
+                    echo json_encode(array("issuccess"=>false, "errcode"=>"103", "errmsg"=>"query failure"));
+                    exit;
+                }
+            }            
             $conn->close();
             echo json_encode($resultArray);
         }

@@ -12,202 +12,203 @@ $(document).ready(
         let addr2Error = true;
         $('#addressvalid2').hide();        
         $('#modalAddress2').keyup(()=>validateaddress2());
-        // phone 3
-        let phone3Error = true;
-        $('#phonevalid3').hide();        
-        $('#modalPhone3').keyup(()=>validatephone3());
-        // facilities 3
-        let facilities3Error = true;
-        $('#facilitiesvalid3').hide();        
-        $('#modalFacilities').keyup(()=>validatefacilities3());        
-        // hours 3
-        let hours3Error = true;
-        $('#hoursvalid3').hide();        
-        $('#modalHours3').keyup(()=>validatehours3());
-        // lat 3
-        let lat3Error = true;
-        $('#latvalid3').hide();
-        $('#modalLat3').keyup(()=>validatelat3());
-        // long 3
-        let long3Error = true;
-        $('#longvalid3').hide();
-        $('#modalLong3').keyup(()=>validatelong3());
+        // phone 2
+        let phone2Error = true;
+        $('#phonevalid2').hide();        
+        $('#modalPhone2').keyup(()=>validatephone2());
+        // facilities 2
+        let facilities2Error = true;
+        $('#facilitiesvalid2').hide();        
+        $('#modalFacilities2').keyup(()=>validatefacilities2());        
+        // hours 2
+        let hours2Error = true;
+        $('#hoursvalid2').hide();        
+        $('#modalHours2').keyup(()=>validatehours2());
+        // lat 2
+        let lat2Error = true;
+        $('#latvalid2').hide();
+        $('#modalLat2').keyup(()=>validatelat2());
+        // long 2
+        let long2Error = true;
+        $('#longvalid2').hide();
+        $('#modalLong2').keyup(()=>validatelong2());
 
-        function validatename3() {
-            name3Error = true;
-            let name3Value = $('#modalName3').val();
-            if (name3Value.length == '') {
-                $('#namevalid3').show();
-                $('#namevalid3').html('** Name is missing');
-                name3Error = false;
+        function validatename2() {
+            console.log("validatename2");
+            name2Error = true;
+            let name2Value = $('#modalName2').val();
+            if (name2Value.length == '') {
+                $('#namevalid2').show();
+                $('#namevalid2').html('** Name is missing');
+                name2Error = false;
                 return false;
             }
-            if (name3Value.length < 5) {
-                $('#namevalid3').show();
-                $('#namevalid3').html('** Length of name must be greater than 5');
-                name3Error = false;
+            if (name2Value.length < 5) {
+                $('#namevalid2').show();
+                $('#namevalid2').html('** Length of name must be greater than 5');
+                name2Error = false;
                 return false;
             }
-            $('#namevalid3').hide();
+            $('#namevalid2').hide();
         }
 
-        function validatedistrict3() {
-            dist3Error = true;
-            let dist3Value = $('#modalDistrict3').val();
-            if (dist3Value.length == '') {
-                $('#districtvalid3').show();
-                $('#districtvalid3').html('** District is missing');
-                dist3Error = false;
+        function validatedistrict2() {
+            dist2Error = true;
+            let dist2Value = $('#modalDistrict2').val();
+            if (dist2Value.length == '') {
+                $('#districtvalid2').show();
+                $('#districtvalid2').html('** District is missing');
+                dist2Error = false;
                 return false;
             }
-            if (dist3Value.length < 5) {
-                $('#districtvalid3').show();
-                $('#districtvalid3').html('** Length of district must be greater than 5');
-                dist3Error = false;
+            if (dist2Value.length < 5) {
+                $('#districtvalid2').show();
+                $('#districtvalid2').html('** Length of district must be greater than 5');
+                dist2Error = false;
                 return false;
             }
-            $('#districtvalid3').hide();
+            $('#districtvalid2').hide();
         }
 
-        function validateaddress3() {
-            addr3Error = true;
-            let addr3Value = $('#modalAddress3').val();
-            if (addr3Value.length == '') {
-                $('#addressvalid3').show();
-                $('#addressvalid3').html('** Address is missing');
-                addr3Error = false;
+        function validateaddress2() {
+            addr2Error = true;
+            let addr2Value = $('#modalAddress2').val();
+            if (addr2Value.length == '') {
+                $('#addressvalid2').show();
+                $('#addressvalid2').html('** Address is missing');
+                addr2Error = false;
                 return false;
             }
-            if (addr3Value.length < 10) {
-                $('#addressvalid3').show();
-                $('#addressvalid3').html('** Length of address must be greater than 10');
-                addr3Error = false;
+            if (addr2Value.length < 10) {
+                $('#addressvalid2').show();
+                $('#addressvalid2').html('** Length of address must be greater than 10');
+                addr2Error = false;
                 return false;
             }
-            $('#addressvalid3').hide();
+            $('#addressvalid2').hide();
         }
 
-        function validatephone3() {
-            phone3Error = true;
-            let phone3Value = $('#modalPhone3').val();
-            if (phone3Value.length == '') {
-                $('#phonevalid3').show();
-                $('#phonevalid3').html('** Phone is missing');
-                phone3Error = false;
+        function validatephone2() {
+            phone2Error = true;
+            let phone2Value = $('#modalPhone2').val();
+            if (phone2Value.length == '') {
+                $('#phonevalid2').show();
+                $('#phonevalid2').html('** Phone is missing');
+                phone2Error = false;
                 return false;
             }
             let patPhone = /^[0-9]{4}[ ]{1}[0-9]{4}$/;
-            let result = patPhone.test(phone3Value);
+            let result = patPhone.test(phone2Value);
             if (result == false) {
-                $('#phonevalid3').show();
-                $('#phonevalid3').html('** format of phone incorrect');
-                phone3Error = false;
+                $('#phonevalid2').show();
+                $('#phonevalid2').html('** format of phone incorrect');
+                phone2Error = false;
                 return false;
             }
-            $('#phonevalid3').hide();
+            $('#phonevalid2').hide();
         }
 
-        function validatefacilities3() {
-            facilities3Error = true;
-            let facili3Value = $('#modalFacilities3').val();
-            if (facili3Value.length == '') {
-                $('#facilitiesvalid3').show();
-                $('#facilitiesvalid3').html('** Facilities are missing');
-                facilities3Error = false;
+        function validatefacilities2() {
+            facilities2Error = true;
+            let facili2Value = $('#modalFacilities2').val();
+            if (facili2Value.length == '') {
+                $('#facilitiesvalid2').show();
+                $('#facilitiesvalid2').html('** Facilities are missing');
+                facilities2Error = false;
                 return false;
             }
-            if (facili3Value.length < 3) {
-                $('#facilitiesvalid3').show();
-                $('#facilitiesvalid3').html('** Length of facilities must be greater than 3');
-                facilities3Error = false;
+            if (facili2Value.length < 3) {
+                $('#facilitiesvalid2').show();
+                $('#facilitiesvalid2').html('** Length of facilities must be greater than 3');
+                facilities2Error = false;
                 return false;
             }
-            $('#facilitiesvalid3').hide();
+            $('#facilitiesvalid2').hide();
         }
 
-        function validatehours3() {
-            hours3Error = true;
-            let hours3Value = $('#modalHours3').val();
-            if (hours3Value.length == '') {
-                $('#hoursvalid3').show();
-                $('#hoursvalid3').html('** Opening hours are missing');
-                hours3Error = false;
+        function validatehours2() {
+            hours2Error = true;
+            let hours2Value = $('#modalHours2').val();
+            if (hours2Value.length == '') {
+                $('#hoursvalid2').show();
+                $('#hoursvalid2').html('** Opening hours are missing');
+                hours2Error = false;
                 return false;
             }
-            if (hours3Value.length < 5) {
-                $('#hoursvalid3').show();
-                $('#hoursvalid3').html('** Length of Opening hours must be greater than 5');
-                hours3Error = false;
+            if (hours2Value.length < 5) {
+                $('#hoursvalid2').show();
+                $('#hoursvalid2').html('** Length of Opening hours must be greater than 5');
+                hours2Error = false;
                 return false;
             }
-            $('#hoursvalid3').hide();
+            $('#hoursvalid2').hide();
         }
 
-        function validatelat3() {
-            lat3Error = true;
-            let lat3Value = $('#modalLat3').val();
-            if (lat3Value.length == '') {
-                $('#latvalid3').show();
-                $('#latvalid3').html('** Latitude is missing');
-                lat3Error = false;
+        function validatelat2() {
+            lat2Error = true;
+            let lat2Value = $('#modalLat2').val();
+            if (lat2Value.length == '') {
+                $('#latvalid2').show();
+                $('#latvalid2').html('** Latitude is missing');
+                lat2Error = false;
                 return false;
             }
             let patLat = /^-{0,1}[0-9]{1,3}-[0-9]{1,2}-[0-9]{1,2}$/;
-            let result = patLat.test(lat3Value);
+            let result = patLat.test(lat2Value);
             if (result == false) {
-                $('#latvalid3').show();
-                $('#latvalid3').html('** format of latitude incorrect');
-                lat3Error = false;
+                $('#latvalid2').show();
+                $('#latvalid2').html('** format of latitude incorrect');
+                lat2Error = false;
                 return false;
             }
-            $('#latvalid3').hide();
+            $('#latvalid2').hide();
         }
 
-        function validatelong3() {
-            long3Error = true;
-            let long3Value = $('#modalLong3').val();
-            if (long3Value.length == '') {
-                $('#longvalid3').show();
-                $('#longvalid3').html('** Longitude is missing');
-                long3Error = false;
+        function validatelong2() {
+            long2Error = true;
+            let long2Value = $('#modalLong2').val();
+            if (long2Value.length == '') {
+                $('#longvalid2').show();
+                $('#longvalid2').html('** Longitude is missing');
+                long2Error = false;
                 return false;
             }
             let patLong = /^-{0,1}[0-9]{1,3}-[0-9]{1,2}-[0-9]{1,2}$/;
-            let result = patLong.test(long3Value);
+            let result = patLong.test(long2Value);
             if (result == false) {
-                $('#longvalid3').show();
-                $('#longvalid3').html('** format of Longitude incorrect');
-                long3Error = false;
+                $('#longvalid2').show();
+                $('#longvalid2').html('** format of Longitude incorrect');
+                long2Error = false;
                 return false;
             }
-            $('#longvalid3').hide();
+            $('#longvalid2').hide();
         }
 
         // onclick button
-        $('#AddIt').click(
+        $('#EditIt').click(
             () => {
                 console.log('try adding ...');
-                validatename3();
-                console.log("name3Error: " + name3Error);
-                validatedistrict3();
-                console.log("dist3Error: " + dist3Error);
-                validateaddress3();
-                console.log("addr3Error: " + addr3Error);
-                validatephone3();
-                console.log("phone3Error: " + phone3Error);
-                validatefacilities3();
-                console.log("facilities3Error: " + facilities3Error);
-                validatehours3();
-                console.log("hours3Error: " + hours3Error);
-                validatelat3();
-                console.log("lat3Error: " + lat3Error);
-                validatelong3();
-                console.log("long3Error: " + long3Error);
-                if (name3Error == false || dist3Error == false || addr3Error == false || phone3Error == false || facilities3Error == false || hours3Error == false || lat3Error == false || long3Error == false) {
+                validatename2();
+                console.log("name2Error: " + name2Error);
+                validatedistrict2();
+                console.log("dist2Error: " + dist2Error);
+                validateaddress2();
+                console.log("addr2Error: " + addr2Error);
+                validatephone2();
+                console.log("phone2Error: " + phone2Error);
+                validatefacilities2();
+                console.log("facilities2Error: " + facilities2Error);
+                validatehours2();
+                console.log("hours2Error: " + hours2Error);
+                validatelat2();
+                console.log("lat2Error: " + lat2Error);
+                validatelong2();
+                console.log("long2Error: " + long2Error);
+                if (name2Error == false || dist2Error == false || addr2Error == false || phone2Error == false || facilities2Error == false || hours2Error == false || lat2Error == false || long2Error == false) {
                     return;
                 }
-                goAdd();
-                console.log('added.');
+                goEdit();
+                console.log('edited.');
             }
         )
 

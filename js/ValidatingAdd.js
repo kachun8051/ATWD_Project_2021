@@ -19,7 +19,7 @@ $(document).ready(
         // facilities 3
         let facilities3Error = true;
         $('#facilitiesvalid3').hide();        
-        $('#modalFacilities').keyup(()=>validatefacilities3());        
+        $('#modalFacilities3').keyup(()=>validatefacilities3());        
         // hours 3
         let hours3Error = true;
         $('#hoursvalid3').hide();        
