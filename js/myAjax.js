@@ -1,8 +1,13 @@
 var request = new XMLHttpRequest();
-//make resultArray as global variables
-var resultArray;
+// make resultArray as global variables
+var resultArray = [];
+// array of district
+var districtArray = [];
+// current row id of selection for edition and delete
+var currRowId = -1;
+// global string of html table
 var htmlString;
-            
+
 function onLoadHandler(){    
     // fetch the weather icon
     fetchWeather();    
@@ -17,7 +22,7 @@ function fetchFacilities() {
 	request.onreadystatechange = loadingPage;  // callback	
 	request.send(null);
 }
-
+/*
 function onUpdatedHandler(){
     if (request.readyState==4) {
 		if (request.status==200) {
@@ -52,7 +57,7 @@ function onUpdatedHandler(){
         }
     }                
 }
-
+*/
 function loadingDistrict() {
     if (request.readyState == 4) {
         if (request.status == 200) {
@@ -61,12 +66,13 @@ function loadingDistrict() {
             if (resultObj.issuccess === false) {
                 return;
             }
-            resultArray = resultObj.data;
-            if (resultArray == undefined) {
+            districtArray = resultObj.data;
+            if (districtArray == undefined) {
+
                 return;
             }
             htmlString = "<li><a class='dropdown-item' href='#'>ALL</a></li>";
-            resultArray.forEach(
+            districtArray.forEach(
                 (item) => {
                     htmlString += "<li><a class='dropdown-item' href='#'>" + item + "</a></li>";
                 }
@@ -102,8 +108,11 @@ function loadingPage(){
 			htmlString += "<th>Name</th>";
 			htmlString += "<th>Facilities</th>";
             htmlString += "<th>Details</th><th>Map</th><th>Delete</th><th>Edit</th></tr>"			
-			resultArray.forEach(showRowRecord); 
-            htmlString += "</ul>"
+			resultArray.forEach((rec, i) => {
+                console.log("forEach: " + i);
+                htmlString += addBatchRows(rec, i);
+            }); 
+            htmlString += "</table>"
 			area.innerHTML = htmlString;
             // fetch the district list after the facilities loading completed
             fetchDistrict();
@@ -118,8 +127,10 @@ function fetchDistrict() {
 	request.send(null);
 }
 // record is value 
-// idx is counter            
+// idx is counter  
+/*          
 function showRowRecord(record, idx) {    
+    
 	htmlString += "<tr id='row_" + idx + "' class='accordion-toggle'>";
 	htmlString += "<td>" + record["GIHS"] + "</td>";
 	htmlString += "<td>" + record["District_en"] + "</td>";
@@ -142,9 +153,10 @@ function showRowRecord(record, idx) {
     htmlString += "Remarks: <br/><span>" + record["Remarks_en"] + "</span>";
     htmlString += "</div></div></td></tr>";
 }
+*/
 
 function tryFillGMap(_gihs) {
-
+    console.log("tryFillGMap: " + _gihs);
     let objFound = findRowByGIHS(_gihs);
     if (objFound == null) {
         return;
@@ -200,34 +212,38 @@ function formatGeoLoc(i_str){
 function findRowByGIHS(gihs){
     let isfound = false;
     if (resultArray == undefined) {
+        console.log("findRowByGIHS: resultArray is undefined!");
         return null;
     }
     let obj = {};
     // iterating the array to find gihs	
-	for (item of resultArray) {
-		if (item['GIHS']==gihs) {
-			obj.GIHS = item['GIHS'];
-			obj.Name_en = item['Name_en'];	
-			obj.District_en = item['District_en'];
+    for (item of resultArray) {
+        if (item['GIHS']==gihs) {
+            obj.GIHS = item['GIHS'];
+            obj.Name_en = item['Name_en'];	
+            obj.District_en = item['District_en'];
             obj.Address_en = item['Address_en'];
             obj.Phone = item['Phone'];
-			obj.Facilities_en = item['Facilities_en'];
-			obj.Ancillary_facilities_en = item['Ancillary_facilities_en'];
+            obj.Facilities_en = item['Facilities_en'];
+            obj.Ancillary_facilities_en = item['Ancillary_facilities_en'];
             obj.Opening_hours_en = item['Opening_hours_en'];
             obj.Remarks_en = item['Remarks_en'];
             obj.Latitude = item['Latitude'];
-			obj.Longitude = item['Longitude'];            
+            obj.Longitude = item['Longitude'];            
             console.log("found!");
             isfound = true;
-			break;
-		}
-	}	
+            break;
+        }
+    }	
     if (isfound == false) {
+        console.log("findRowByGIHS: not found!");
         return null;
     } else {
         return obj;
     }
 }
+
+
 // clear the add modal upon onclick
 function resetAddModal() {
     //document.getElementById("modalGIHS3").value = "";
@@ -244,13 +260,16 @@ function resetAddModal() {
 }
 
 //try fill the pop up the modal
-function tryFillModal(gihs, operation){
+function tryFillModal(gihs, rowid, operation){
 
     if (operation == 'add') {
         resetAddModal();
         return;
     }
+    console.log("row index: " + rowid + " is selected");
     console.log("input gihs: " + gihs);
+    // record the selected rowid to global variable
+    currRowId = parseInt(rowid);
     let objRow = findRowByGIHS(gihs);
     if (objRow == null) {
         return;
@@ -291,7 +310,7 @@ function goDelete(){
     // link - http://localhost/ATWD_Project_2021/controller.php/barbecue/GIHS/" + gihs;
     let url2 = "./controller.php/barbecue/GIHS/" + gihs;
 	request.open("DELETE", url2, true);	
-	request.onreadystatechange = onUpdatedHandler;  // callback
+	request.onreadystatechange = onSingleRowDeletedHandler; // callback
 	//request.send('sendingdata=' + JSON.stringify(objParams));
     request.send(null);
 }
@@ -313,14 +332,14 @@ function goEdit(){
     }
     let url2 = "./controller.php/barbecue";
     request.open("PUT", url2, true);
-    request.onreadystatechange = onUpdatedHandler; //callback
+    request.onreadystatechange = onSingleRowUpdatedHandler; //callback
     request.send(JSON.stringify(objSend));
 }
 
 function goAdd(){    
     // retrieve the UI into an object for sending (i.e. POST)
     // The unique key GIHS would be created in REST API but not from UI
-    let objSend = {
+    let objSent = {
         Name_en: document.getElementById("modalName3").value,
         District_en: document.getElementById("modalDistrict3").value,
         Address_en: document.getElementById("modalAddress3").value,
@@ -334,8 +353,8 @@ function goAdd(){
     }
     let url2 = "./controller.php/barbecue";
     request.open("POST", url2, true);
-    request.onreadystatechange = onUpdatedHandler; //callback
-    request.send(JSON.stringify(objSend));
+    request.onreadystatechange = onSingleRowInsertedHandler //callback
+    request.send(JSON.stringify(objSent));
 }
 
 //var loading;
@@ -377,3 +396,4 @@ async function fetchWeather() {
     //this.loading = false;
   }
 }
+//});

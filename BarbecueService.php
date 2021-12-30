@@ -63,15 +63,21 @@
             if ($this->objSqlString == null) {
                 $this->objSqlString = new sqlString();
             }            
-            $sql_3 = $this->objSqlString->getSqlInsert2($params);
+            //$sql_3 = $this->objSqlString->getSqlInsert2($params);
+            // the return value is an associate array
+            // {sql, gihs}
+            $objSql_3 = $this->objSqlString->getSqlInsert2($params);
             $conn =  $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);            
-            $dbresult=$conn->query($sql_3);
-            $conn->close();
+            $dbresult=$conn->query($objSql_3["sql"]);     
+            $jStr = json_encode($params);       
 			if ($dbresult) {
-				echo json_encode(array("issuccess"=>true, "operation"=>"add", "msg"=>"record created"));
+				echo json_encode(
+                    array("issuccess"=>true, "operation"=>"add", "msg"=>"record created", 
+                        "gihs"=>$objSql_3["gihs"], "json"=>$jStr));
 			} else {
 				echo json_encode(array("issuccess"=>false, "errcode"=>"302", "errmsg"=>"SQL failed to create facility record"));
 			}
+            $conn->close();
         }
 
         function restPut($params) {
@@ -85,9 +91,11 @@
             $conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             $sql = $this->objSqlString->getSqlUpdate($params);
             $dbresult = $conn->query($sql);
+            $jStr = json_encode($params);
             $conn->close();
             if ($dbresult){
-                echo json_encode(array("issuccess"=>true, "operation"=>"put", "msg"=>"record updated"));
+                echo json_encode(
+                    array("issuccess"=>true, "operation"=>"put", "msg"=>"record updated", "json"=>$jStr));
             } else {
                 echo json_encode(array("issuccess"=>false, "errcode"=>"202", "errmsg"=>"SQL failed to update facility record"));
             }

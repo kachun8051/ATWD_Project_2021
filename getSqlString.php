@@ -72,7 +72,7 @@
             $sqlIns .= "`Ancillary_facilities_en`, `Opening_hours_en`, `Phone`, `Remarks_en`, `Longitude`, `Latitude`) "; 
             $sqlIns .= "VALUES ('$gihs', '$name_en', '$dist_en', '$addr_en', '$faci_en', "; 
             $sqlIns .= "'$anci_en', '$open_en', '$phone', '$remk_en', '$long', '$lat')";
-            return $sqlIns;
+            return array("gihs"=>$gihs, "sql"=>$sqlIns);
         }
 
         // input $paramobj is an associated array
