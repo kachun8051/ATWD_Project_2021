@@ -135,8 +135,8 @@ function onSingleRowUpdatedHandler() {
 	    temp += "<td>" + record["Facilities_en"] + "</td>";
       temp += "<td><img src='./images/info.png' width=30 data-bs-toggle='collapse' data-bs-target='#demo" + currRowId + "' /></td>";
       temp += "<td><img src='./images/gmap.png' width=30 onclick='tryFillGMap(&quot;" + record["GIHS"] + "&quot;)' data-bs-toggle='modal' title='google map' data-bs-target='#GMapModal' /></td>";
-      temp += "<td><img src='./images/bin.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;," + currRowId + " &quot;delete&quot;)' data-bs-toggle='modal' title='delete' data-bs-target='#confirmDeleteModal' /></td>";	            
-      temp += "<td><img src='./images/edit.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;," + currRowId + " &quot;edit&quot;)' data-bs-toggle='modal' title='edit' data-bs-target='#confirmEditModal' /></td>";
+      temp += "<td><img src='./images/bin.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;," + currRowId + ", &quot;delete&quot;)' data-bs-toggle='modal' title='delete' data-bs-target='#confirmDeleteModal' /></td>";	            
+      temp += "<td><img src='./images/edit.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;," + currRowId + ", &quot;edit&quot;)' data-bs-toggle='modal' title='edit' data-bs-target='#confirmEditModal' /></td>";
 	    temp += "</tr>";
       let subtemp = "<tr id='subrow_" + currRowId + "'><td style='padding-bottom: 5px;' colspan='8' class='hiddenRow'>";
       subtemp += "<div class='accordian-body collapse p-3' id='demo" + currRowId + "'>";
