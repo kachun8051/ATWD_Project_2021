@@ -21,13 +21,14 @@
             }
             $resultArray = array();       
             if ($param !== null) {
-                $tempSql = "SELECT " . $param[0] . " FROM `tblbbq` GROUP BY " . $param[0];
+                $colname = $param[0];
+                $tempSql = "SELECT " . $colname . " FROM `tblbbq` GROUP BY " . $colname;
                 $dbresult = $conn->query($tempSql);
                 if ($dbresult) {
                     $dataArray = array();
                     // records retrieved
                     while ( $row=$dbresult->fetch_assoc()) {					
-                        $dataArray[] = $row[$param[0]];
+                        $dataArray[] = $row["District_en"];
                     }
                     //echo json_encode($resultArray);
                     $resultArray = array("issuccess"=>true, "data"=>$dataArray);
@@ -107,8 +108,8 @@
                 echo json_encode(array("issuccess"=>false, "errcode"=>"101", "errmsg"=>"No params provided"));
                 exit;
             }    
-            if ($params[0] !== 'GIHS') {
-                echo json_encode(array("issuccess"=>false, "errcode"=>"101", "errmsg"=>"No GIHS provided", "input"=> json_encode($params)));
+            if ($params[0] !== 'GIHS' || count($params) !== 2) {
+                echo json_encode(array("issuccess"=>false, "errcode"=>"102", "errmsg"=>"No GIHS provided", "input"=> json_encode($params)));
                 exit;
             }
             if ($this->objSqlString == null) {
@@ -117,7 +118,7 @@
 			$conn = $this->objSqlString->getConn(); // new mysqli($this->server, $this->dbuser, $this->dbpassword, $this->dbname);
             if ($conn->connect_error) {
 	            //die ("Database failed");
-                echo json_encode(array("issuccess"=>false, "errcode"=>"102", "errmsg"=>"Database connection failure"));
+                echo json_encode(array("issuccess"=>false, "errcode"=>"103", "errmsg"=>"Database connection failure"));
                 exit;
             }
             //echo $params;

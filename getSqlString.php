@@ -4,7 +4,8 @@
         private $server = "localhost";
         private $dbuser = "root";
         private $dbpassword = "";
-        private $dbname = "bbq";
+        public $dbname = "bbq";
+        public $tablename = "tblbbq";
         public $sqlcreate;
         public $sqlSelect_en;
 
