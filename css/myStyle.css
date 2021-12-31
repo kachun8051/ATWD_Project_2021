@@ -28,3 +28,13 @@ body{
 .accordian-body span{
   color:#a2a2a2 !important;
 }
+
+.highlightrow {
+  background-color: yellow;
+}
+
+.selectrow {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;    
+}

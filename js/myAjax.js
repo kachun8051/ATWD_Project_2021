@@ -7,14 +7,14 @@ var districtArray = [];
 var currRowId = -1;
 // global string of html table
 var htmlString;
-
+// body onload function
 function onLoadHandler(){    
     // fetch the weather icon
     fetchWeather();    
     // fetch the bbq facilities
     fetchFacilities();
 } 
-
+// init the database if no database is found
 function fetchFacilities() {
     // link - http://localhost/ATWD_Project_2021/controller.php/dbinit
     var url2 = "./controller.php/dbinit";		
@@ -22,42 +22,7 @@ function fetchFacilities() {
 	request.onreadystatechange = loadingPage;  // callback	
 	request.send(null);
 }
-/*
-function onUpdatedHandler(){
-    if (request.readyState==4) {
-		if (request.status==200) {
-            var respData = request.responseText;
-            //alert(respData);
-            //return;
-            var objResp = JSON.parse(respData);
-            //alert(objResp.issuccess);
-            //return;
-            console.log(objResp.issuccess);
-            if (objResp.issuccess == true) {
-                console.log("operation: " + objResp.operation);
-                //close the dialog
-                switch (objResp.operation) {
-                    case 'delete':
-                        document.getElementById("btnModalCancel").click();
-                        break;
-                    case 'put':
-                        document.getElementById("btnModalCancel2").click();
-                        break;
-                    case 'add':
-                        document.getElementById("btnModalCancel3").click();
-                        break;
-                }
-                //refresh the page
-                // link - http://localhost/ATWD_Project_2021/controller.php/barbecue
-                var url2 = "./controller.php/barbecue";		
-	            request.open("GET", url2, true);	
-	            request.onreadystatechange = loadingPage;  // callback
-	            request.send(null);
-            }                        
-        }
-    }                
-}
-*/
+// loading the district list
 function loadingDistrict() {
     if (request.readyState == 4) {
         if (request.status == 200) {
@@ -83,7 +48,7 @@ function loadingDistrict() {
         }
     }
 }
-
+// loading the data from database and fill the table
 function loadingPage(){
     //alert("loadingPage");
     if (request.readyState==4) {
@@ -119,42 +84,14 @@ function loadingPage(){
         }
     }
 }
-
+// fetch the district list from database
 function fetchDistrict() {
     var url1 = "./controller.php/barbecue/District_en";
     request.open("GET", url1, true);	
 	request.onreadystatechange = loadingDistrict;  // callback	
 	request.send(null);
 }
-// record is value 
-// idx is counter  
-/*          
-function showRowRecord(record, idx) {    
-    
-	htmlString += "<tr id='row_" + idx + "' class='accordion-toggle'>";
-	htmlString += "<td>" + record["GIHS"] + "</td>";
-	htmlString += "<td>" + record["District_en"] + "</td>";
-	htmlString += "<td>" + record["Name_en"] + "</td>";
-	htmlString += "<td>" + record["Facilities_en"] + "</td>";
-    htmlString += "<td><img src='./images/info.png' width=30 data-bs-toggle='collapse' data-bs-target='#demo" + idx + "' /></td>";
-    htmlString += "<td><img src='./images/gmap.png' width=30 onclick='tryFillGMap(&quot;" + record["GIHS"] + "&quot;)' data-bs-toggle='modal' title='google map' data-bs-target='#GMapModal' /></td>";
-    htmlString += "<td><img src='./images/bin.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;, &quot;delete&quot;)' data-bs-toggle='modal' title='delete' data-bs-target='#confirmDeleteModal' /></td>";	            
-    htmlString += "<td><img src='./images/edit.png' width=30 onclick='tryFillModal(&quot;" + record["GIHS"] + "&quot;, &quot;edit&quot;)' data-bs-toggle='modal' title='edit' data-bs-target='#confirmEditModal' /></td>";
-	htmlString += "</tr>";
-    htmlString += "<tr id='subrow_" + idx + "'><td style='padding-bottom: 5px;' colspan='8' class='hiddenRow'>";
-    htmlString += "<div class='accordian-body collapse p-3' id='demo" + idx + "'>";
-    htmlString += "<div class='col-md-2' style='float: left; justify-content: space-between; align-items: center; margin-bottom: 10px;'>";
-    htmlString += "Ancillary Facilities: <span>" + record["Ancillary_facilities_en"] + "</span></div>";
-    htmlString += "<div class='col-md-4' style='float: left; margin-bottom: 10px;'>";
-    htmlString += "Address: <span>" + record["Address_en"] + "</span><br/>";
-    htmlString += "Phone: <span>" + record["Phone"] + "</span><br/>";
-    htmlString += "Opening hours: <span>" + record["Opening_hours_en"] + "</span></div>";    
-    htmlString += "<div class='col-md-5' style='float: left; margin-bottom: 10px;'>";
-    htmlString += "Remarks: <br/><span>" + record["Remarks_en"] + "</span>";
-    htmlString += "</div></div></td></tr>";
-}
-*/
-
+// fill the google map dialog
 function tryFillGMap(_gihs) {
     console.log("tryFillGMap: " + _gihs);
     let objFound = findRowByGIHS(_gihs);
@@ -242,8 +179,6 @@ function findRowByGIHS(gihs){
         return obj;
     }
 }
-
-
 // clear the add modal upon onclick
 function resetAddModal() {
     //document.getElementById("modalGIHS3").value = "";
@@ -353,12 +288,11 @@ function goAdd(){
     }
     let url2 = "./controller.php/barbecue";
     request.open("POST", url2, true);
-    request.onreadystatechange = onSingleRowInsertedHandler //callback
+    request.onreadystatechange = onSingleRowInsertedHandler; //callback
     request.send(JSON.stringify(objSent));
 }
 
-//var loading;
-//var iconurl;
+// fetch the weather from hksar api since user would concern weather when go to bbq
 async function fetchWeather() {
   //this.loading = true;
   const mylink = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en";
@@ -393,7 +327,5 @@ async function fetchWeather() {
         "<ul style='color: beige;'><li>Temp: " + avgOfTemp + "&deg;C</li>" +
         "<li>Humid: " + humid + "%</li>" +
         "<li>Rainfail: " + avgOfRain + "mm</li></ul></div>";
-    //this.loading = false;
   }
 }
-//});
