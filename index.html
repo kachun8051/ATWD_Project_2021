@@ -31,7 +31,7 @@
                         function() {
                             let value = $(this).val().toLowerCase();
                             console.log("keyup " + value);
-                            $("#displaytable tr").filter(
+                            $("#displaytable tr").each(
                                 function() {
                                     $(this).toggle($(this).text().toLowerCase().indexOf(value)>-1)
                                 }
@@ -45,7 +45,7 @@
                             if (value2 == "all") {
                                 value2 = "";
                             }                        
-                            $("#displaytable tr").filter(
+                            $("#displaytable tr").each(
                                 function() {
                                     $(this).toggle($(this).text().toLowerCase().indexOf(value2)>-1)
                                 }
