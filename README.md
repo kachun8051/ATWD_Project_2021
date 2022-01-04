@@ -31,6 +31,21 @@
 |   +-- README.md
 
 ```
+
+## Endpoints
+
+The url structure is:
+> ```http://localhost/controller.php/<resource>/<key1>/<value1>/... ```
+
+| Function | HTTP Method | Endpoint | Url example |
+| ------ | ------ | ------ | ------ |
+| 1. Initial the database | GET | /dbinit | http://localhost/ATWD_Project_2021/controller.php/dbinit |
+| 2. Delete a facility | DELETE | /barbecue/GIHS/:gihs | http://localhost/ATWD_Project_2021/controller.php/barbecue/GIHS/0e879In4fk |
+| 3. Add a facility | POST | /barbecue | http://localhost/ATWD_Project_2021/controller.php/barbecue | 
+| 4. Edit a facility | PUT | /barbecue | http://localhost/ATWD_Project_2021/controller.php/barbecue |
+| 5. Show all facilities | GET | /barbecue | http://localhost/ATWD_Project_2021/controller.php/barbecue |
+| 6. Show all districts | GET | /barbecue/District_en | http://localhost/ATWD_Project_2021/controller.php/barbecue/District_en |
+
 ## Uploaded on php hosting server
 
 ![/imagesforreadme/ATWD_Project_2021_Cover.png](/imagesforreadme/ATWD_Project_2021_Cover.png)
