@@ -11,15 +11,22 @@
 +-- src
 |   +-- css
 |   |   +-- dropdown.css
+|   |   +-- myStyle.css
 |   +-- images
 |   |   +-- bin.png
 |   |   +-- edit.png
+|   |   +-- gmap.png
+|   |   +-- info.png
 |   +-- js
 |   |   +-- myAjax.js
+|   |   +-- myTableCRUD.js
+|   |   +-- ValidatingAdd.js
+|   |   +-- ValidatingEdit.js
 |   +-- BarbecueService.php
+|   +-- DbinitService.php
 |   +-- clsDbInit.php
 |   +-- controller.php
-|   +-- DbinitService.php
+|   +-- getSqlString.php
 |   +-- index.html
 |   +-- README.md
 
