@@ -33,6 +33,6 @@
 ```
 ## Uploaded on php hosting server
 
-![/imagesforreadme/WebpageInhosting.png](/imagesforreadme/WebpageInhosting.png)
+![/imagesforreadme/ATWD_Project_2021_Cover.png](/imagesforreadme/ATWD_Project_2021_Cover.png)
 
 [http://www.phpmysqlmariadb.byethost3.com/index.html](http://www.phpmysqlmariadb.byethost3.com/index.html)
