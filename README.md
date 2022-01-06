@@ -46,6 +46,21 @@ The url structure is:
 | 5. Show all facilities | GET | /barbecue | http://localhost/ATWD_Project_2021/controller.php/barbecue |
 | 6. Show all districts | GET | /barbecue/District_en | http://localhost/ATWD_Project_2021/controller.php/barbecue/District_en |
 
+## Test the endpoints by Postman   
+
+### 1. Initial the database
+
+![/imagesforreadme/InitTheDatabase.png](/imagesforreadme/InitTheDatabase.png)
+
+### 2. Delete the facility
+
+![/imagesforreadme/DELETE_facility.png](/imagesforreadme/DELETE_facility.png)
+  
+### 3. Post the facility
+
+![/imagesforreadme/POST_facility_01.png](/imagesforreadme/POST_facility_01.png)
+![/imagesforreadme/POST_facility_02.png](/imagesforreadme/POST_facility_02.png)
+  
 ## Uploaded on php hosting server
 
 ![/imagesforreadme/ATWD_Project_2021_Cover.png](/imagesforreadme/ATWD_Project_2021_Cover.png)
