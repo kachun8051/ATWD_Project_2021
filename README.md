@@ -50,7 +50,7 @@ The url structure is:
 
 ### 1. Initial the database
 
-![/imagesforreadme/InitTheDatabase.png](/imagesforreadme/InitTheDatabase.png)
+![/imagesforreadme/GET_dbinit.png](/imagesforreadme/GET_dbinit.png)
 
 ### 2. Delete the facility
 
@@ -60,6 +60,19 @@ The url structure is:
 
 ![/imagesforreadme/POST_facility_01.png](/imagesforreadme/POST_facility_01.png)
 ![/imagesforreadme/POST_facility_02.png](/imagesforreadme/POST_facility_02.png)
+
+### 4. Put the facility
+
+![/imagesforreadme/PUT_facility_01.png](/imagesforreadme/PUT_facility_01.png)
+![/imagesforreadme/PUT_facility_02.png](/imagesforreadme/PUT_facility_02.png)
+
+### 5. Get the facilities
+
+![/imagesforreadme/GET_facilities.png](/imagesforreadme/GET_facilities.png)
+
+### 6. Get the districts
+
+![/imagesforreadme/GET_districts.png](/imagesforreadme/GET_districts.png)
   
 ## Uploaded on php hosting server
 
