@@ -17,7 +17,7 @@
             if ($conn->connect_error) {                
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"401", "msg"=>"database connection error"));
-                die ("database connection failed");
+                //die ("database connection failed");
                 exit;
             }
             $dbname_1 = $this->objSqlString->dbname;
@@ -72,7 +72,7 @@
                 $isexist = false;
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"401", "msg"=>"database connection error"));
-                die ("database connection failed");
+                // die ("database connection failed");
                 exit;                
             } else {
                 $sql = "SELECT COUNT(*) FROM `" . $tablename_1 . "`";
@@ -96,7 +96,7 @@
                 $isexist = false;
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"401", "errmsg"=>"database connection failed"));
-                die ("database connection failed");
+                // die ("database connection failed");
                 exit();
             } else {
                 // Second, create table if not exists 
@@ -125,7 +125,7 @@
                 $isempty = false;
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"401", "errmsg"=>"database connection error"));
-                die ("database connection failed");
+                //die ("database connection failed");
                 exit;
             } else {
                 $sql = "SELECT COUNT(*) FROM `" . $tablename_2 . "`";
@@ -134,7 +134,7 @@
                     $isempty = false;
                     echo json_encode(
                         array("issuccess"=>false, "errcode"=>"402", "msg"=>"database query error"));
-                    die ("database query failed");
+                    //die ("database query failed");
                     exit;
                 } else {
                     $rows = mysqli_fetch_row($result);                
@@ -155,7 +155,7 @@
             if (!isset($jsonFile)) {                
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"405", "errmsg"=>"Url is invalid"));
-                die ("Url is invalid. Json file not found!");
+                //die ("Url is invalid. Json file not found!");
                 return false;
             }
             $isinserted = true;
@@ -166,11 +166,12 @@
             $bbqs = json_decode($jsonFile, true);
             foreach ($bbqs as $bbq) {                
                 $sql_2 = $this->objSqlString->getSqlInsert($bbq);
+                // $sql_2 = $this->objSqlString->getSqlEnglishInsert($bbq);
                 if (!$result=$conn->query($sql_2)) {                    
                     $isinserted = false;
                     echo json_encode(
                         array("issuccess"=>false, "errcode"=>"403", "errmsg"=>"insertion error"));
-                    die ("insertion failed");
+                    //die ("insertion failed");
                     exit;
                 }
             }
@@ -187,7 +188,7 @@
             if ($conn->connect_error) {
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"401", "msg"=>"database connection failed"));
-                die ("database connection failed");
+                //die ("database connection failed");
                 return false;
             }
             $isdeleted = true;
@@ -197,7 +198,7 @@
                 $isdeleted = false;
                 echo json_encode(
                     array("issuccess"=>false, "errcode"=>"404", "errmsg"=>"deletion failed"));    
-                die ("failed to delete table");
+                //die ("failed to delete table");
                 exit;
             }
             $conn->close();

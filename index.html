@@ -50,7 +50,16 @@
                                     $(this).toggle($(this).text().toLowerCase().indexOf(value2)>-1)
                                 }
                             );
-                        });         
+                        });
+                        
+                        $('.accordion-toggle').click(function() {
+                            if ( $(this).attr('aria-expanded') == "true" ) {
+                                $(this).children().css('background-color', '#FFF');
+                            } else {
+                                $(this).children().css('background-color', '#DDD');
+                            }
+                        });
+
                     }                
                 );      
             </script>      

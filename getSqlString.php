@@ -102,6 +102,28 @@
             return $sqlIns;
         }
         
+        // input $paramobj is an associated array
+        function getSqlEnglishInsert($paramobj) {                        
+            $gihs = $paramobj['GIHS'];            
+            $dist_en = str_replace("'", "&apos;", $paramobj['District_en']);
+            $name_en = str_replace("'", "&apos;", $paramobj['Name_en']);
+            $addr_en = str_replace("'", "&apos;", $paramobj['Address_en']);
+            $faci_en = str_replace("'", "&apos;", $paramobj['Facilities_en']);
+            $anci_en = str_replace("'", "&apos;", $paramobj['Ancillary_facilities_en']);
+            $open_en = str_replace("'", "&apos;", $paramobj['Opening_hours_en']);
+            $phone = str_replace("'", "&apos;", $paramobj['Phone']);
+            $remk_en = str_replace("'", "&apos;", $paramobj['Remarks_en']);
+            $long = str_replace("'", "&apos;", $paramobj['Longitude']);
+            $lat = str_replace("'", "&apos;", $paramobj['Latitude']);
+            $sqlIns = "INSERT INTO `tblbbq`(`GIHS`, `District_en`, `Name_en`, `Address_en`, "; 
+            $sqlIns .= "`Facilities_en`, `Ancillary_facilities_en`, `Opening_hours_en`, `Phone`, `Remarks_en`, "; 
+            $sqlIns .= "`Longitude`, `Latitude`) "; 
+            $sqlIns .= "VALUES ('$gihs', '$dist_en', '$name_en', '$addr_en', ";
+            $sqlIns .= "'$faci_en', '$anci_en', '$open_en', '$phone', '$remk_en', ";
+            $sqlIns .= "'$long', '$lat')";
+            return $sqlIns;
+        }
+
         private function keygen() {
             $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $input_length = strlen($permitted_chars);
