@@ -35,16 +35,46 @@
 
         // input $paramobj is an object
         function getSqlUpdate($paramobj) {
-            $name_en = str_replace("'", "&apos;", $paramobj->Name_en);
-            $dist_en = str_replace("'", "&apos;", $paramobj->District_en);
-            $addr_en = str_replace("'", "&apos;", $paramobj->Address_en);
-            $faci_en = str_replace("'", "&apos;", $paramobj->Facilities_en);
-            $anci_en = str_replace("'", "&apos;", $paramobj->Ancillary_facilities_en);
-            $open_en = str_replace("'", "&apos;", $paramobj->Opening_hours_en);
-            $phone = str_replace("'", "&apos;", $paramobj->Phone);
-            $remk_en = str_replace("'", "&apos;", $paramobj->Remarks_en);
-            $long = $paramobj->Longitude;
-            $lat = $paramobj->Latitude;
+            $name_en = '';
+            if (isset($paramobj->Name_en)) {
+                $name_en = str_replace("'", "&apos;", $paramobj->Name_en);
+            }
+            $dist_en = '';
+            if (isset($paramobj->District_en)) {
+                $dist_en = str_replace("'", "&apos;", $paramobj->District_en);
+            }
+            $addr_en = '';
+            if (isset($paramobj->Address_en)) {
+                $addr_en = str_replace("'", "&apos;", $paramobj->Address_en);
+            }
+            $faci_en = '';
+            if (isset($paramobj->Facilities_en)) {
+                $faci_en = str_replace("'", "&apos;", $paramobj->Facilities_en);
+            }
+            $anci_en = '';
+            if (isset($paramobj->Ancillary_facilities_en)) {
+                $anci_en = str_replace("'", "&apos;", $paramobj->Ancillary_facilities_en);
+            }
+            $open_en = '';
+            if (isset($paramobj->Opening_hours_en)) {
+                $open_en = str_replace("'", "&apos;", $paramobj->Opening_hours_en);
+            }
+            $phone = '';
+            if (isset($paramobj->Phone)) {
+                $phone = str_replace("'", "&apos;", $paramobj->Phone);
+            }
+            $remk_en = '';
+            if (isset($paramobj->Remarks_en)) {
+                $remk_en = str_replace("'", "&apos;", $paramobj->Remarks_en);
+            }
+            $long = '';
+            if (isset($paramobj->Longitude)) {
+                $long = $paramobj->Longitude;
+            }
+            $lat = '';
+            if (isset($paramobj->Latitude)) {
+                $lat = $paramobj->Latitude;
+            }            
             $gihs = $paramobj->GIHS;
             $sqlUpd = "UPDATE `tblbbq` SET `Name_en`='$name_en', `District_en`='$dist_en', `Address_en`='$addr_en', "; 
             $sqlUpd .= "`Facilities_en`='$faci_en', `Ancillary_facilities_en`='$anci_en', `Opening_hours_en`='$open_en', ";
