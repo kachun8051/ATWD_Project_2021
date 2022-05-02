@@ -45,6 +45,7 @@ The url structure is:
 | 4. Edit a facility | PUT | /barbecue | http://localhost/ATWD_Project_2021/controller.php/barbecue |
 | 5. Show all facilities | GET | /barbecue | http://localhost/ATWD_Project_2021/controller.php/barbecue |
 | 6. Show all districts | GET | /barbecue/District_en | http://localhost/ATWD_Project_2021/controller.php/barbecue/District_en |
+| 7. Wild Card Search | GET | /bbq/:keyword | http://localhost/ATWD_Project_2021/controller.php/bbq/pits |
 
 ## Test the endpoints by Postman   
 
