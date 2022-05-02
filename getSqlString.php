@@ -84,17 +84,48 @@
         }
 
         // input $paramobj is an object
+        // this function is used when user input
         function getSqlInsert2($paramobj) {
-            $name_en = str_replace("'", "&apos;", $paramobj->Name_en);
-            $dist_en = str_replace("'", "&apos;", $paramobj->District_en);
-            $addr_en = str_replace("'", "&apos;", $paramobj->Address_en);
-            $faci_en = str_replace("'", "&apos;", $paramobj->Facilities_en);
-            $anci_en = str_replace("'", "&apos;", $paramobj->Ancillary_facilities_en);
-            $open_en = str_replace("'", "&apos;", $paramobj->Opening_hours_en);
-            $phone = str_replace("'", "&apos;", $paramobj->Phone);
-            $remk_en = str_replace("'", "&apos;", $paramobj->Remarks_en);
-            $long = $paramobj->Longitude;
-            $lat = $paramobj->Latitude;
+            $name_en = '';
+            if (isset($paramobj->Name_en)) {
+                $name_en = str_replace("'", "&apos;", $paramobj->Name_en);    
+            }
+            $dist_en = '';
+            if (isset($paramobj->District_en)) {
+                $dist_en = str_replace("'", "&apos;", $paramobj->District_en);
+            }
+            $addr_en = '';
+            if (isset($paramobj->Address_en)) {
+                $addr_en = str_replace("'", "&apos;", $paramobj->Address_en);
+            }
+            $faci_en = '';
+            if (isset($paramobj->Facilities_en)) {
+                $faci_en = str_replace("'", "&apos;", $paramobj->Facilities_en);
+            }
+            $anci_en = '';
+            if (isset($paramobj->Ancillary_facilities_en)) {
+                $anci_en = str_replace("'", "&apos;", $paramobj->Ancillary_facilities_en);
+            }
+            $open_en = '';
+            if (isset($paramobj->Opening_hours_en)) {
+                $open_en = str_replace("'", "&apos;", $paramobj->Opening_hours_en);
+            }
+            $phone = '';
+            if (isset($paramobj->Phone)) {
+                $phone = str_replace("'", "&apos;", $paramobj->Phone);
+            }
+            $remk_en = '';
+            if (isset($paramobj->Remarks_en)) {
+                $remk_en = str_replace("'", "&apos;", $paramobj->Remarks_en);
+            }
+            $long = '';
+            if (isset($paramobj->Longitude)) {
+                $long = $paramobj->Longitude;
+            }
+            $lat = '';
+            if (isset($paramobj->Latitude)) {
+                $lat = $paramobj->Latitude;
+            }            
             do {
                 $gihs = $this->keygen();
             } 
@@ -107,6 +138,7 @@
         }
 
         // input $paramobj is an associated array
+        // this function is used by looping json string
         function getSqlInsert($paramobj) {                        
             $gihs = $paramobj['GIHS'];            
             $dist_en = str_replace("'", "&apos;", $paramobj['District_en']);
@@ -133,6 +165,7 @@
         }
         
         // input $paramobj is an associated array
+        // this function is used by looping json string
         function getSqlEnglishInsert($paramobj) {                        
             $gihs = $paramobj['GIHS'];            
             $dist_en = str_replace("'", "&apos;", $paramobj['District_en']);
