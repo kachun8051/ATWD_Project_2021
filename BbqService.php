@@ -45,7 +45,7 @@
                 //echo json_encode($resultArray);
                 $resultArray = array("issuccess"=>true, "data"=>$dataArray);
             } else {
-                echo json_encode(array("issuccess"=>false, "errcode"=>"103", "errmsg"=>"query failure"));
+                echo json_encode(array("issuccess"=>false, "errcode"=>"503", "errmsg"=>"query failure"));
                 exit;
             }
             $conn->close();
