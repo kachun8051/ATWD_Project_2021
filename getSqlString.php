@@ -35,51 +35,74 @@
 
         // input $paramobj is an object
         function getSqlUpdate($paramobj) {
+
+            $arrColValPair = array();
+
             $name_en = '';
             if (isset($paramobj->Name_en)) {
                 $name_en = str_replace("'", "&apos;", $paramobj->Name_en);
+                array_push($arrColValPair, "`Name_en`='$name_en'"); 
             }
             $dist_en = '';
             if (isset($paramobj->District_en)) {
                 $dist_en = str_replace("'", "&apos;", $paramobj->District_en);
+                array_push($arrColValPair, "`District_en`='$dist_en'");
             }
             $addr_en = '';
             if (isset($paramobj->Address_en)) {
                 $addr_en = str_replace("'", "&apos;", $paramobj->Address_en);
+                array_push($arrColValPair, "`Address_en`='$addr_en'");
             }
             $faci_en = '';
             if (isset($paramobj->Facilities_en)) {
                 $faci_en = str_replace("'", "&apos;", $paramobj->Facilities_en);
+                array_push($arrColValPair, "`Facilities_en`='$faci_en'");
             }
             $anci_en = '';
             if (isset($paramobj->Ancillary_facilities_en)) {
                 $anci_en = str_replace("'", "&apos;", $paramobj->Ancillary_facilities_en);
+                array_push($arrColValPair, "`Ancillary_facilities_en`='$anci_en'");
             }
             $open_en = '';
             if (isset($paramobj->Opening_hours_en)) {
                 $open_en = str_replace("'", "&apos;", $paramobj->Opening_hours_en);
+                array_push($arrColValPair, "`Opening_hours_en`='$open_en'");
             }
             $phone = '';
             if (isset($paramobj->Phone)) {
                 $phone = str_replace("'", "&apos;", $paramobj->Phone);
+                array_push($arrColValPair, "`Phone`='$phone'");
             }
             $remk_en = '';
             if (isset($paramobj->Remarks_en)) {
                 $remk_en = str_replace("'", "&apos;", $paramobj->Remarks_en);
+                array_push($arrColValPair, "`Remarks_en`='$remk_en'"); 
             }
             $long = '';
             if (isset($paramobj->Longitude)) {
                 $long = $paramobj->Longitude;
+                array_push($arrColValPair, "`Longitude`='$long'");
             }
             $lat = '';
             if (isset($paramobj->Latitude)) {
                 $lat = $paramobj->Latitude;
+                array_push($arrColValPair, "`Latitude`='$lat'");
             }            
             $gihs = $paramobj->GIHS;
+
+            if (count($arrColValPair) > 0) {
+                $param = implode(', ', $arrColValPair);
+                $sqlUpd = "UPDATE `tblbbq` SET " . $param . " WHERE `GIHS`='$gihs'";
+            }
+            else {
+                $sqlUpd = "";
+            }
+            /*
             $sqlUpd = "UPDATE `tblbbq` SET `Name_en`='$name_en', `District_en`='$dist_en', `Address_en`='$addr_en', "; 
             $sqlUpd .= "`Facilities_en`='$faci_en', `Ancillary_facilities_en`='$anci_en', `Opening_hours_en`='$open_en', ";
             $sqlUpd .= "`Phone`='$phone', `Remarks_en`='$remk_en', `Longitude`='$long', `Latitude`='$lat' "; 
             $sqlUpd .= "WHERE `GIHS`='$gihs'";
+            */
             return $sqlUpd;
         }
 
